@@ -13,11 +13,34 @@ import { RouterLink, RouterView } from 'vue-router'
 
         <RouterLink :to="{ name: 'jobs'}">Jobs</RouterLink>
       </nav>
+      <div class="buttons">
+        <button @click="redirect">Redirect</button>
+        <button @click="back">Go back</button>
+        <button @click="forward">Go forward</button>
+      </div>
     </div>
   </header>
 
   <RouterView />
 </template>
+
+<script>
+export default {
+  methods: {
+    redirect() {
+      this.$router.push({name: 'home'})
+    },
+    back() {
+      // don't confuse $route and $router (route is to get info and router is to do something)
+      // go is a method (can pass in a minus or plus # - go back through the history)
+      this.$router.go(-1)
+    },
+    forward() {
+      this.$router.go(1)
+    } 
+  }
+}
+</script>
 
 <style scoped>
 header {
@@ -53,6 +76,18 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+.buttons {
+  text-align: center;
+  padding-top: 20px;
+}
+
+button {
+  margin: 0 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
 }
 
 @media (min-width: 1024px) {
